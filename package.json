@@ -1,7 +1,7 @@
 {
   "name": "cse341-project2",
   "version": "1.0.0",
-  "description": "",
+  "description": "tv shows api",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,6 +17,15 @@
     "express": "^4.21.2",
     "mongodb": "^6.15.0",
     "swagger-autogen": "^2.23.7",
-    "swagger-ui-express": "^5.0.1"
-  }
+    "swagger-ui-express": "^5.0.1",
+    "validatorjs": "^3.22.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karim1311/cse341-project2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/karim1311/cse341-project2/issues"
+  },
+  "homepage": "https://github.com/karim1311/cse341-project2#readme"
 }

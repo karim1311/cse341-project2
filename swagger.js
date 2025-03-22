@@ -6,7 +6,7 @@ const doc = {
         description: 'TV series, shows and anime API'
     },
     host: 'localhost:3000',
-    schemes: ['http', 'https']
+    schemes: ['http']
 }
 
 const outputFile = './swagger.json'
