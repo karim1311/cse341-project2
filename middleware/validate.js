@@ -3,8 +3,8 @@ const validator = require('../helpers/validate')
 const saveShow = (req, res, next) => {
     const validationRule = {
         name: 'required|string',
-        episodes: 'required|number',
-        seasons: 'required|number',
+        episodes: 'required|integer',
+        seasons: 'required|integer',
         releasedate: 'required|string',
         enddate: 'string',
         watched: 'required|boolean'

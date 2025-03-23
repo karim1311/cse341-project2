@@ -3,30 +3,30 @@ const ObjectId = require('mongodb').ObjectId
 
 const getAll = async (req, res) => {
     const result = await mongodb.getDatabase().db().collection('tvshows').find()
-    result.toArray((err,lists) => {
-        if (err) {
-            res.status(400).json({ message: err })
-        }
+    result.toArray().then((contacts) => {
         res.setHeader('Content-Type', 'application/json')
-        res.status(200).json(lists)
+        res.status(200).json(contacts)
     })
+//     mongodb
+//     .getDatabase()
+//     .db()
+//     .collection('tvshows')
+//     .find()
+//     .toArray((err, lists) => {
+//       if (err) {
+//         res.status(400).json({ message: err })
+//       }
+//     res.setHeader('Content-Type', 'application/json');
+//     res.status(200).json(lists);
+//   });
 }
 
 const getSingle = async (req, res) => {
-    if (!ObjectId.isValid(req.params.id)) {
-        res.status(400).json('Must use a valid show id to find a show')
-    }
-
     const showId = new ObjectId(req.params.id)
-
-    const result = await mongodb.getDatabase().db().collection('tvshows').find({ _id: showId })
-    result.toArray((err, result) => {
-        // error handling
-        if (err) {
-            res.status(400).json({ message: err })
-        }
+    const result = await mongodb.getDatabase().db().collection('tvshows').find({ _id: showId})
+    result.toArray().then((shows) => {
         res.setHeader('Content-Type', 'application/json')
-        res.status(200).json(result[0])
+        res.status(200).json(shows[0])
     })
 }
 

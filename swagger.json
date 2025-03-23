@@ -5,10 +5,10 @@
     "description": "TV series, shows and anime API",
     "version": "1.0.0"
   },
-  "host": "https://cse341-project2-6ivw.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/": {
