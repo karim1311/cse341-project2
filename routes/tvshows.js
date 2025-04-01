@@ -27,24 +27,24 @@ router.post('/', ensureAuth, async (req, res) => {
 // @route   GET /tvshows
 router.get('/', ensureAuth, async (req, res) => {
   try {
-    const tvshows = await Tvshow.find({ status: 'public' })
+    const tvshows = await Tvshow.find() // { status: 'public' }
       .populate('user')
       .sort({ createdAt: 'desc' })
       .lean()
       
 
       // Check if the request expects JSON (via the Accept header)
-      if (req.accepts('json')) {
-      // If the client accepts JSON, return the JSON response
-      return res.status(200).json(tvshows);
-    }
+    //   if (req.accepts('json')) {
+    //   // If the client accepts JSON, return the JSON response
+    //   return res.status(200).json(tvshows);
+    // }
 
     // res.status(200).json(tvshows)
     // res.status(200).json(tvshows)
     // i will only send back json
-    res.render('tvshows/index', {
-      tvshows,
-    })
+     res.render('tvshows/index', {
+       tvshows,
+     })
   } catch (err) {
     console.error(err)
     res.render('error/500')
@@ -103,7 +103,7 @@ router.get('/edit/:id', ensureAuth, async (req, res) => {
 // @route   PUT /tvshows/:id
 router.put('/:id', ensureAuth, async (req, res) => {
   try {
-    let tvshow = await tvshow.findById(req.params.id).lean()
+    let tvshow = await Tvshow.findById(req.params.id).lean()
 
     if (!tvshow) {
       return res.render('error/404')
@@ -112,7 +112,7 @@ router.put('/:id', ensureAuth, async (req, res) => {
     if (tvshow.user != req.user.id) {
       res.redirect('/tvshows')
     } else {
-      tvshow = await tvshow.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      tvshow = await Tvshow.findOneAndUpdate({ _id: req.params.id }, req.body, {
         new: true,
         runValidators: true,
       })
@@ -129,7 +129,7 @@ router.put('/:id', ensureAuth, async (req, res) => {
 // @route   DELETE /tvshows/:id
 router.delete('/:id', ensureAuth, async (req, res) => {
   try {
-    let tvshow = await tvshow.findById(req.params.id).lean()
+    let tvshow = await Tvshow.findById(req.params.id).lean()
 
     if (!tvshow) {
       return res.render('error/404')
@@ -151,7 +151,7 @@ router.delete('/:id', ensureAuth, async (req, res) => {
 // @route   GET /tvshows/user/:userId
 router.get('/user/:userId', ensureAuth, async (req, res) => {
   try {
-    const tvshows = await tvshow.find({
+    const tvshows = await Tvshow.find({
       user: req.params.userId,
       status: 'public',
     })
@@ -171,7 +171,7 @@ router.get('/user/:userId', ensureAuth, async (req, res) => {
 //@route GET /tvshows/search/:query
 router.get('/search/:query', ensureAuth, async (req, res) => {
   try{
-      const tvshows = await tvshow.find({title: new RegExp(req.query.query,'i'), status: 'public'})
+      const tvshows = await Tvshow.find({title: new RegExp(req.query.query,'i'), status: 'public'})
       .populate('user')
       .sort({ createdAt: 'desc'})
       .lean()

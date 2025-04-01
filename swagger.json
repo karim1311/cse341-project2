@@ -13,11 +13,88 @@
   "paths": {
     "/tvshows": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": ["tvshows"],
+        "description": "Retrieve a list of TV shows",
         "produces":[
           "application/json"
         ],
+        "responses": {
+          "200":{
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "id of the tvshow",
+                        "example": "12343"
+                      },
+                      "title": {
+                        "type": "string",
+                        "description": "title of the tvshow",
+                        "example": "Breaking bad"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404":{
+            "description": "tvshows not found"
+          },
+          "500":{
+            "description": "internal server error"
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": ["tvshows"],
+        "description": "add a new show",
+        "parameters": [{
+          "in": "body",
+            "name": "show",
+            "description": "The show to be added",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "Title of the show",
+                  "example": "Breaking Bad"
+                },
+                "body": {
+                  "type": "string",
+                  "description": "Description of the show",
+                  "example": "A high school chemistry teacher turned methamphetamine manufacturer."
+                },
+                "status": {
+                  "type": "string",
+                  "description": "public or private",
+                  "example": "public"
+                },
+                "user": {
+                  "type": "string",
+                  "description": "id of the user",
+                  "example": "1236657"
+                },
+                "createdAt": {
+                  "type": "date",
+                  "description": "date of register",
+                  "example": "2025-04-01"
+                }
+              },
+              "required": ["title"]
+            }
+        }],
         "responses": {
           "200":{
             "description": "OK",
@@ -31,6 +108,109 @@
           },
           "default": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/tvshow/{id}": {
+      "put": {
+        "tags": ["tvshows"],
+        "description": "Update an existing TV show",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the TV show to update",
+            "schema": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          {
+            "in": "body",
+            "name": "tvshow",
+            "required": true,
+            "description": "Updated details of the TV show",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "Title of the TV show",
+                  "example": "Breaking Bad"
+                },
+                "body": {
+                  "type": "string",
+                  "description": "Description of the TV show",
+                  "example": "A high school chemistry teacher turned methamphetamine manufacturer."
+                },
+                "status": {
+                  "type": "string",
+                  "description": "public or private",
+                  "example": "public"
+                },
+                "user": {
+                  "type": "string",
+                  "description": "q251351fe564w",
+                  "example": "54126512s1df3fs"
+                },
+                "createdAt": {
+                  "type": "date",
+                  "description": "TV show added date",
+                  "example": "2025-01-01"
+                }
+              },
+              "required": ["title"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TV show successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "ID of the TV show",
+                      "example": 1
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Title of the TV show",
+                      "example": "Breaking Bad"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description of the TV show",
+                      "example": "A high school chemistry teacher turned methamphetamine manufacturer."
+                    },
+                    "genre": {
+                      "type": "string",
+                      "description": "Genre of the TV show",
+                      "example": "Drama"
+                    },
+                    "releaseYear": {
+                      "type": "integer",
+                      "description": "Release year of the TV show",
+                      "example": 2008
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "TV show not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "default": {
+            "description": "Unexpected error"
           }
         }
       }
