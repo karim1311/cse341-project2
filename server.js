@@ -71,7 +71,10 @@ app.set('view engine', '.hbs')
 // sessions
 app.use(
     session({
-        store: MongoStore.create({mongoUrl: process.env.MONGO_URI,}),
+        store: MongoStore.create({
+            client: mongoose.connection.getClient(),
+            // mongoUrl: process.env.MONGO_URI,
+        }),
         secret: 'keyboard cat',
         resave: false,
         saveUninitialized: false,
