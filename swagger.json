@@ -1,22 +1,84 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Series API",
-    "description": "TV series, shows and anime API",
+    "title": "tvshows Api",
+    "description": "tvshows Api",
     "version": "1.0.0"
   },
-  "host": "cse341-project2-6ivw.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
+    "http",
     "https"
   ],
   "paths": {
+    "/tvshows": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "produces":[
+          "application/json"
+        ],
+        "responses": {
+          "200":{
+            "description": "OK"
+          },
+          "404":{
+            "description": "tvshows not found"
+          },
+          "500":{
+            "description": "internal server error"
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/": {
+      "get": {
+        "tags": [
+          "hello world"
+        ],
+        "description": "",
+        "responses": {
+          "200":{
+            "description": "OK"
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/dashboard": {
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -31,71 +93,19 @@
         }
       }
     },
-    "/shows/": {
+    "/add": {
       "get": {
         "description": "",
-        "produces": [
-          "application/json"
-        ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "episodes": {
-                  "example": "any"
-                },
-                "seasons": {
-                  "example": "any"
-                },
-                "releasedate": {
-                  "example": "any"
-                },
-                "enddate": {
-                  "example": "any"
-                },
-                "watched": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "412": {
-            "description": "Precondition Failed"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
     },
-    "/shows/{id}": {
+    "/{id}": {
       "get": {
         "description": "",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -105,11 +115,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -121,47 +128,11 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "episodes": {
-                  "example": "any"
-                },
-                "seasons": {
-                  "example": "any"
-                },
-                "releasedate": {
-                  "example": "any"
-                },
-                "enddate": {
-                  "example": "any"
-                },
-                "watched": {
-                  "example": "any"
-                }
-              }
-            }
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "412": {
-            "description": "Precondition Failed"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -176,14 +147,67 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/edit/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/search/{query}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "type": "string"
           },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          {
+            "name": "query",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }
