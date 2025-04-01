@@ -32,7 +32,16 @@ router.get('/', ensureAuth, async (req, res) => {
       .sort({ createdAt: 'desc' })
       .lean()
       
+
+      // Check if the request expects JSON (via the Accept header)
+      if (req.accepts('json')) {
+      // If the client accepts JSON, return the JSON response
+      return res.status(200).json(tvshows);
+    }
+
     // res.status(200).json(tvshows)
+    // res.status(200).json(tvshows)
+    // i will only send back json
     res.render('tvshows/index', {
       tvshows,
     })

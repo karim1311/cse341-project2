@@ -5,10 +5,10 @@
     "description": "tvshows Api",
     "version": "1.0.0"
   },
-  "host": "cse341-project2-6ivw.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/tvshows": {
@@ -20,7 +20,8 @@
         ],
         "responses": {
           "200":{
-            "description": "OK"
+            "description": "OK",
+            "content": "application/json"
           },
           "404":{
             "description": "tvshows not found"
