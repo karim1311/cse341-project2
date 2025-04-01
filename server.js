@@ -18,7 +18,23 @@ dotenv.config({ path: './config/config.env' })
 // Passport config 
 require('./config/passport')(passport)
 
-connectDB()
+// Connect to the database first
+connectDB().then(() => {
+    // Then, set up the session store with the correct options
+    app.use(
+        session({
+            store: MongoStore.create({
+                client: mongoose.connection.getClient(),  // Pass the client after the connection is established
+            }),
+            secret: 'keyboard cat',
+            resave: false,
+            saveUninitialized: false,
+        })
+    );
+}).catch((err) => {
+    console.error('Error connecting to MongoDB:', err);
+    process.exit(1); // Exit if database connection fails
+});
 
 const app = express()
 
@@ -69,16 +85,16 @@ const {
 app.set('view engine', '.hbs')
 
 // sessions
-app.use(
-    session({
-        store: MongoStore.create({
-            client: mongoose.connection.getClient(),
-            // mongoUrl: process.env.MONGO_URI,
-        }),
-        secret: 'keyboard cat',
-        resave: false,
-        saveUninitialized: false,
-}))
+// app.use(
+//     session({
+//         store: MongoStore.create({
+//             client: mongoose.connection.getClient(),
+//             // mongoUrl: process.env.MONGO_URI,
+//         }),
+//         secret: 'keyboard cat',
+//         resave: false,
+//         saveUninitialized: false,
+// }))
 
 // Passport middleware
 app.use(passport.initialize())
