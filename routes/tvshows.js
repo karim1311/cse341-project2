@@ -112,20 +112,21 @@ router.put('/:id', ensureAuth, async (req, res) => {
       return res.render('error/404')
     }
 
-    // if (tvshow.user != req.user.id) {
-    //   res.redirect('/tvshows')
-    // } else {
-    //   tvshow = await Tvshow.findOneAndUpdate({ _id: req.params.id }, req.body, {
-    //     new: true,
-    //     runValidators: true,
-    //   })
-    //   // res.redirect('/dashboard')
-    // }
+    if (tvshow.user != req.user.id) {
+      // res.redirect('/tvshows')
+      res.status(401).send()
+    } else {
+      tvshow = await Tvshow.findOneAndUpdate({ _id: req.params.id }, req.body, {
+        new: true,
+        runValidators: true,
+      })
+      res.status(204).send()
+      // res.redirect('/dashboard')
+    }
     tvshow = await Tvshow.findOneAndUpdate({ _id: req.params.id }, req.body, {
       new: true,
       runValidators: true,
     })
-    res.status(204).send()
   } catch (err) {
     console.error(err)
     return res.render('error/500')

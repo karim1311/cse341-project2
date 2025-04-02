@@ -203,6 +203,9 @@
               }
             }
           },
+          "401": {
+            "description": "only user can update tv show"
+          },
           "404": {
             "description": "TV show not found"
           },
