@@ -16,7 +16,8 @@ router.post('/', ensureAuth, async (req, res) => {
   try {
     req.body.user = req.user.id
     await Tvshow.create(req.body)
-    res.redirect('/dashboard')
+    res.status(204).send()
+    // res.redirect('/dashboard')
   } catch (err) {
     console.error(err)
     res.render('error/500')
@@ -40,11 +41,11 @@ router.get('/', ensureAuth, async (req, res) => {
     // }
 
     // res.status(200).json(tvshows)
-    // res.status(200).json(tvshows)
+    res.status(200).json(tvshows)
     // i will only send back json
-     res.render('tvshows/index', {
-       tvshows,
-     })
+    //  res.render('tvshows/index', {
+    //    tvshows,
+    //  })
   } catch (err) {
     console.error(err)
     res.render('error/500')
@@ -64,9 +65,10 @@ router.get('/:id', ensureAuth, async (req, res) => {
     if (tvshow.user._id != req.user.id && tvshow.status == 'private') {
       res.render('error/404')
     } else {
-      res.render('tvshows/show', {
-        tvshow,
-      })
+      // res.render('tvshows/show', {
+      //   tvshow,
+      // })
+      res.status(200).json(tvshow)
     }
   } catch (err) {
     console.error(err)
@@ -105,20 +107,25 @@ router.put('/:id', ensureAuth, async (req, res) => {
   try {
     let tvshow = await Tvshow.findById(req.params.id).lean()
 
+
     if (!tvshow) {
       return res.render('error/404')
     }
 
-    if (tvshow.user != req.user.id) {
-      res.redirect('/tvshows')
-    } else {
-      tvshow = await Tvshow.findOneAndUpdate({ _id: req.params.id }, req.body, {
-        new: true,
-        runValidators: true,
-      })
-
-      res.redirect('/dashboard')
-    }
+    // if (tvshow.user != req.user.id) {
+    //   res.redirect('/tvshows')
+    // } else {
+    //   tvshow = await Tvshow.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    //     new: true,
+    //     runValidators: true,
+    //   })
+    //   // res.redirect('/dashboard')
+    // }
+    tvshow = await Tvshow.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+      runValidators: true,
+    })
+    res.status(204).send()
   } catch (err) {
     console.error(err)
     return res.render('error/500')
@@ -136,10 +143,12 @@ router.delete('/:id', ensureAuth, async (req, res) => {
     }
 
     if (tvshow.user != req.user.id) {
-      res.redirect('/tvshows')
+      res.status(401).send()
+      // res.redirect('/tvshows')
     } else {
-      await tvshow.deleteOne({ _id: req.params.id })
-      res.redirect('/dashboard')
+      await Tvshow.deleteOne({ _id: req.params.id })
+      // res.redirect('/dashboard')
+      res.status(204).send()
     }
   } catch (err) {
     console.error(err)

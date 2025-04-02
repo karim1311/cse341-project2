@@ -5,10 +5,10 @@
     "description": "tvshows Api",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "https://cse341-project2-6ivw.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/tvshows": {
@@ -112,7 +112,7 @@
         }
       }
     },
-    "/tvshow/{id}": {
+    "/tvshows/{id}": {
       "put": {
         "tags": ["tvshows"],
         "description": "Update an existing TV show",
@@ -152,8 +152,8 @@
                 },
                 "user": {
                   "type": "string",
-                  "description": "q251351fe564w",
-                  "example": "54126512s1df3fs"
+                  "description": "user object id",
+                  "example": ""
                 },
                 "createdAt": {
                   "type": "date",
@@ -202,6 +202,69 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "TV show not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["tvshows"],
+        "description": "Update an existing TV show",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the TV show to update",
+            "schema": {
+              "type": "string",
+              "example": ""
+            }
+          },
+          {
+            "in": "body",
+            "name": "tvshow",
+            "required": true,
+            "description": "Updated details of the TV show",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "description": "user object id",
+                  "example": ""
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TV show successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "ID of the TV show",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "only the user of this show can delete it"
           },
           "404": {
             "description": "TV show not found"

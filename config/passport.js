@@ -8,7 +8,7 @@ module.exports = function(passport){
             {
                 clientID: process.env.GOOGLE_CLIENT_ID,
                 clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-                callbackURL: 'http://localhost:3000/auth/google/callback'
+                callbackURL: 'https://cse341-project2-6ivw.onrender.com/auth/google/callback'
             },
 
             async (accessToken, refreshToken, profile, done) => {
@@ -26,6 +26,7 @@ module.exports = function(passport){
                     if (user){
                         done(null, user)
                         console.log('uuser already exists')
+                        res.status(404).send()
                     } else {
                         user = await User.create(newUser)
                         done(null, user)
