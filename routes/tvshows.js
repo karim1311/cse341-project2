@@ -109,6 +109,7 @@ router.put('/:id', ensureAuth, async (req, res) => {
 
 
     if (!tvshow) {
+      res.status(401).send()
       return res.render('error/404')
     }
 
