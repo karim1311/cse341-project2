@@ -5,6 +5,8 @@ module.exports = {
         } else {
             res.redirect('/')
         }
+
+        res.redirect('/login.html')
     },
     ensureGuest: function(req, res, next) {
         if (req.isAuthenticated()) {

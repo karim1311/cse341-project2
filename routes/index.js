@@ -4,7 +4,7 @@ const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 router.use('/', require('./swagger'))
 
-const Tvshow = require('../models/Tvshow')
+const Tvshow = require('../models/TvshowModel')
 
 // @desc    Login/Landing page
 // @route   GET /

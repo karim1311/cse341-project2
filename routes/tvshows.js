@@ -2,7 +2,11 @@ const express = require('express')
 const router = express.Router()
 const { ensureAuth } = require('../middleware/auth')
 
-const Tvshow = require('../models/Tvshow')
+const { getTvshows
+
+} = require('../controllers/tvshowsController')
+
+router.use(ensureAuth)
 
 // @desc    Show add page
 // @route   GET /tvshows/add

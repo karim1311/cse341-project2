@@ -6,7 +6,7 @@ const TvshowSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    body: {
+    description: {
         type: String,
         required: true
     },
