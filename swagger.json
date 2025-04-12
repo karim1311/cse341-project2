@@ -5,10 +5,10 @@
     "description": "tvshows Api",
     "version": "1.0.0"
   },
-  "host": "cse341-project2-6ivw.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/tvshows": {
@@ -71,7 +71,7 @@
                   "description": "Title of the show",
                   "example": "Breaking Bad"
                 },
-                "body": {
+                "description": {
                   "type": "string",
                   "description": "Description of the show",
                   "example": "A high school chemistry teacher turned methamphetamine manufacturer."
@@ -80,16 +80,6 @@
                   "type": "string",
                   "description": "public or private",
                   "example": "public"
-                },
-                "user": {
-                  "type": "string",
-                  "description": "id of the user",
-                  "example": "1236657"
-                },
-                "createdAt": {
-                  "type": "date",
-                  "description": "date of register",
-                  "example": "2025-04-01"
                 }
               },
               "required": ["title"]

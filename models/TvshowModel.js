@@ -15,9 +15,10 @@ const TvshowSchema = new mongoose.Schema({
         default: 'public',
         enum: ['public', 'private']
     },
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true
     },
     createdAt: {
         type: Date,

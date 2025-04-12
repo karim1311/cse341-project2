@@ -14,6 +14,10 @@ dotenv.config({ path: './config/config.env' })
 // Passport config 
 require('./config/passport')(passport)
 
+const authRoutes = require("./routes/auth")
+const tvshowsRoutes = require("./routes/tvshows")
+
+
 connectDB()
 
 const app = express()
@@ -43,9 +47,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 // Routes
-app.use('/', require('./routes'))
-app.use('/auth', require('./routes/auth'))
-app.use('/tvshows', require('./routes/tvshows'))
+app.use('/auth', authRoutes)
+app.use('/tvshows', tvshowsRoutes)
+
+// swagger documentation
+const swaggerDocument = require("./swagger.json")
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 
 // Basic routes
