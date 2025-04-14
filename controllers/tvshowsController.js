@@ -20,6 +20,32 @@ exports.getTvshows = async (req, res) => {
     }
 }
 
+// @desc    Get single tvshow
+// @route   GET /api/tvshows/:id
+exports.getTvshow = async (req, res) => {
+  try {
+    const tvshow = await Tvshow.findById(req.params.id);
+    
+    if (!tvshow) {
+      return res.status(404).json({
+        success: false,
+        message: 'tvshow not found'
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: tvshow
+    });
+  } catch (err) {
+    console.error('Error retrieving tvshow:', err);
+    res.status(500).json({
+      success: false,
+      message: 'Error retrieving tvshow'
+    });
+  }
+};
+
 // @desc    Create new tvshow
 // @route   POST /api/tvshows
 exports.createTvshow = async (req, res) => {
