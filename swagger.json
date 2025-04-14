@@ -103,6 +103,56 @@
       }
     },
     "/tvshows/{id}": {
+      "get": {
+        "tags": ["tvshows"],
+        "description": "Retrieve a TV show by its ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "require": true,
+            "description": "ID of the TV show to retrieve",
+            "schema": {
+              "type": "string",
+              "example": ""
+            }
+          }
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "responses": {
+          "200":{
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "id of the tvshow",
+                        "example": "12343"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404":{
+            "description": "tvshow not found"
+          },
+          "500":{
+            "description": "internal server error"
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      },
       "put": {
         "tags": ["tvshows"],
         "description": "Update an existing TV show",

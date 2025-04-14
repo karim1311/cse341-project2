@@ -5,6 +5,7 @@ const { check } = require('express-validator')
 
 const { 
   getTvshows,
+  getTvshow,
   createTvshow
 
 } = require('../controllers/tvshowsController')
@@ -27,6 +28,11 @@ router.post('/', [
 // @desc    Show all tvshows
 // @route   GET /tvshows
 router.get('/', getTvshows)
+
+
+// @route   GET /api/tvshow/:id
+// @desc    Get single tvshow
+router.get('/:id', getTvshow);
 
 
 

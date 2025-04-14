@@ -1,26 +1,29 @@
-const filterByTerm = require("../src/filterByTerm")
+const userId = new mongoose.Types.ObjectId().toString();
 
-describe("Filter function", () => {
-    test("it should filter by a search term (link)", () => {
-        const input = [
-            {id: 1, url: "https://www.url1.dev"},
-            {id: 2, url: "https://www.url2.dev"},
-            {id: 3, url: "https://www.link3.dev"}
-        ]
-        
-        const output = [{ id: 3, url: "https://www.link3.dev" }]
-        
-        expect(filterByTerm(input, "link")).toEqual(output)
-        
-        expect(filterByTerm(input, "LINK")).toEqual(output)
-        
+const Tvshow = require('../models/TvshowModel')
+// const TestResponse = require('../lib/test-response')
+
+jest.setTimeout(60000)
+
+describe('Tvshow routes', () => {
+    test('Get tvshows by its Id', async () => {
+        const _tvshow = {
+            _id: '67f97510d6fadf08884176db',
+            members: [],
+            projects: []
+        }
+
+        mockingoose(Tvshow).toReturn(_tvshow, 'find')
+
+        const req = {
+            params: { userId: '67eb08a839363becc211c6e6'}
+        }
+
+        const res = new TestResponse()
+
+        await retrieveOne(req, res)
+        expect(res.statusCode).toBe(201)
+        expect(res.data).toEqual(_tvshow)
     })
 })
 
-
-// function filterByTerm(inputArr, searchTerm) {
-//     const regex = new RegExp(searchTerm, "i")
-//     return inputArr.filter(function(arrayElement) {
-//         return arrayElement.url.match(regex)
-//     })
-// }
