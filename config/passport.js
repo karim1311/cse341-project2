@@ -19,13 +19,15 @@ module.exports = function(passport){
             
                     // If user doesn't exist, create new user
                     if (!user) {
-                      const email = profile.emails[0].value;
+
+                        console.log(profile.id)
+                        const email = profile.emails[0].value;
             
             
-                      user = await User.create({
-                        googleId: profile.id,
-                        email: email,
-                        name: profile.displayName,
+                        user = await User.create({
+                            googleId: profile.id,
+                            email: email,
+                            name: profile.displayName,
                       });
                       console.log("New user created:", user.email, "with role:", role);
                     }

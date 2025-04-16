@@ -1,29 +1,36 @@
-const userId = new mongoose.Types.ObjectId().toString();
+const Tvshow = require("../models/TvshowModel");
+const request = require("supertest");
+const app = require("../app");
+const mongoose = require('mongoose')
 
-const Tvshow = require('../models/TvshowModel')
-// const TestResponse = require('../lib/test-response')
+// Mock user data
+const mockUser = { 
+  _id: new mongoose.Types.ObjectId('67ec22b57c22f1891efa281a'),
+  email: 'ramon.altair9@gmail.com' };
 
-jest.setTimeout(60000)
+describe("get Tvshow by its ID", () => {
+  beforeAll(async () => {
+    const conn = await mongoose.connect(process.env.MONGO_URI)
+    
+    console.log(`MongoDB connected : ${conn.connection.host}`)
 
-describe('Tvshow routes', () => {
-    test('Get tvshows by its Id', async () => {
-        const _tvshow = {
-            _id: '67f97510d6fadf08884176db',
-            members: [],
-            projects: []
-        }
+    app.use((req, res, next) => {
+      req.isAuthenticated = () => true; // Always authenticated
+      req.user = mockUser;             // Add mock user to the request
+      next();
+    });
 
-        mockingoose(Tvshow).toReturn(_tvshow, 'find')
+  });
 
-        const req = {
-            params: { userId: '67eb08a839363becc211c6e6'}
-        }
+  afterAll(async () => {
+    await mongoose.connection.close();
+  });
 
-        const res = new TestResponse()
+  it("should respond with a 200 status code", async () => {
+    const response = await request(app)
+    .get("/")
 
-        await retrieveOne(req, res)
-        expect(res.statusCode).toBe(201)
-        expect(res.data).toEqual(_tvshow)
-    })
-})
-
+    expect(response.statusCode).toBe(200);
+    expect(res.body).toBeInstanceOf(Array); // Assuming the response body is an array of tvshows
+  });
+});
